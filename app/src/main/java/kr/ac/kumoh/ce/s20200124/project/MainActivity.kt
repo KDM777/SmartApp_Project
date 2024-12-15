@@ -7,6 +7,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,7 +36,7 @@ fun MainScreen(viewModel: IIAViewModel= androidx.lifecycle.viewmodel.compose.vie
     val iiaList by viewModel.iiaList.observeAsState(emptyList())
 
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-        IIAResult(
+        IIAList(
             list=iiaList,
             modifier=Modifier.padding(innerPadding)
         )
@@ -42,10 +44,12 @@ fun MainScreen(viewModel: IIAViewModel= androidx.lifecycle.viewmodel.compose.vie
 }
 
 @Composable
-fun IIAResult(list: List<IIA>, modifier: Modifier) {
-    Column (
+fun IIAList(list: List<IIA>, modifier: Modifier) {
+    LazyColumn (
         modifier
     ){
-        Text(list.toString())
+        items(list){iia->
+            Text(iia.toString())
+        }
     }
 }
